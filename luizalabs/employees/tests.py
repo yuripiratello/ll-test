@@ -17,7 +17,8 @@ class TestEmpoyleeView(TestCase):
         self.client = APIClient()
 
     def test_success_get_employee(self):
-        response = self.client.get(reverse('employee-detail', kwargs={'pk': self.employee.pk}))
+        response = self.client.get(
+            reverse('employee-detail', kwargs={'pk': self.employee.pk}))
         serializer = EmployeeGETSerializer(self.employee, )
         self.assertEquals(response.data, serializer.data)
         self.assertEquals(response.status_code, status.HTTP_200_OK)
@@ -30,7 +31,9 @@ class TestEmpoyleeView(TestCase):
         self.assertEquals(response.status_code, status.HTTP_200_OK)
 
     def test_delete_employees(self):
-        delete = self.client.delete(reverse('employee-destroy', kwargs={'pk': self.employee.pk}))
+        delete = self.client.delete(
+            reverse('employee-detail', kwargs={'pk': self.employee.pk}))
         self.assertEquals(delete.status_code, status.HTTP_204_NO_CONTENT)
-        not_found = self.client.get(reverse('employee-detail', kwargs={'pk': self.employee.pk}))
+        not_found = self.client.get(
+            reverse('employee-detail', kwargs={'pk': self.employee.pk}))
         self.assertEquals(not_found.status_code, status.HTTP_404_NOT_FOUND)

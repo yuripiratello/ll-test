@@ -1,6 +1,5 @@
 from django.http import Http404
-from rest_framework import viewsets
-from rest_framework.response import Response
+from rest_framework import viewsets, exceptions
 
 from employees.models import Employee
 from employees.serializers import EmployeePOSTSerializer, EmployeeGETSerializer
@@ -13,6 +12,9 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 
     read:
     Retrieve a employee
+
+    list:
+    Retrieve a list of employees
 
     delete:
     Delete a employee
@@ -30,8 +32,6 @@ class EmployeeViewSet(viewsets.ModelViewSet):
                 "or override the `get_serializer_class()` method."
                 % self.__class__.__name__
         )
-
-        print(self.action)
 
         if self.action in ('create', 'update'):
             return EmployeePOSTSerializer
