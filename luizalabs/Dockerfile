@@ -14,5 +14,4 @@ ADD requirements.txt /app
 RUN pip install -r requirements.txt
 
 ADD . /app
-#CMD /app/manage.py runserver 0.0.0.0:8000
-CMD bash
+CMD /app/manage.py runserver 0.0.0.0:8000

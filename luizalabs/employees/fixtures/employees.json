@@ -1,0 +1,50 @@
+[
+  {
+    "model": "employees.employee",
+    "pk": 2,
+    "fields": {
+      "name": "Arnaldo Pereira",
+      "email": "arnaldo@luizalabs.com",
+      "departament": 1
+    }
+  },
+  {
+    "model": "employees.employee",
+    "pk": 3,
+    "fields": {
+      "name": "Renato Pedigoni",
+      "email": "renato@luizalabs.com",
+      "departament": 2
+    }
+  },
+  {
+    "model": "employees.employee",
+    "pk": 4,
+    "fields": {
+      "name": "Thiago Catoto",
+      "email": "thiago@luizalabs.com",
+      "departament": 3
+    }
+  },
+  {
+    "model": "employees.departament",
+    "pk": 1,
+    "fields": {
+      "name": "Architecture"
+    }
+  },
+  {
+    "model": "employees.departament",
+    "pk": 2,
+    "fields": {
+      "name": "E-commerce"
+    }
+  },
+  {
+    "model": "employees.departament",
+    "pk": 3,
+    "fields": {
+      "name": "Mobile"
+    }
+  }
+]

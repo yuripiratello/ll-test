@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  migrate:
+    build:
+      context: .
+    command: "python manage.py migrate"
+    volumes:
+      - .:/app
+  api:
+    build:
+      context: .
+    command: "python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - 9009:8000
+    depends_on:
+      - migrate
+      - load_data
+  load_data:
+    build:
+      context: .
+    command: "python manage.py loaddata employees/fixtures/employees.json"
+    volumes:
+      - .:/app
+    depends_on:
+      - migrate

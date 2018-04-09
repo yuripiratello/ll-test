@@ -1,5 +1,4 @@
-from django.http import Http404
-from rest_framework import viewsets, exceptions
+from rest_framework import viewsets
 
 from employees.models import Employee
 from employees.serializers import EmployeePOSTSerializer, EmployeeGETSerializer
