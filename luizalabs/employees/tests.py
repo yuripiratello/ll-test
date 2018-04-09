@@ -1,13 +1,17 @@
 from django.test import TestCase
-from django.urls import reverse
+from django.urls import reverse, resolve
 from rest_framework import status
 from rest_framework.test import APIRequestFactory, APIClient
-from employees.models import Employee
+from employees.models import Employee, Departament
 from employees.serializers import EmployeeGETSerializer
+from employees.views import EmployeeViewSet
 
 
 class TestEmpoyleeView(TestCase):
     def setUp(self):
+        self.departament = Departament.objects.create(
+            name="Architeture",
+        )
         self.employee = Employee.objects.create(
             name="Yuri Piratello",
             email="yuri@luizalabs.com",
@@ -15,6 +19,10 @@ class TestEmpoyleeView(TestCase):
         )
         self.factory = APIRequestFactory()
         self.client = APIClient()
+
+    def check_view_class(self):
+        view = resolve('/employee/')
+        self.assertEquals(view.func.view_class, EmployeeViewSet)
 
     def test_success_get_employee(self):
         response = self.client.get(
@@ -29,6 +37,14 @@ class TestEmpoyleeView(TestCase):
         serializer = EmployeeGETSerializer(employees, many=True)
         self.assertEquals(response.data, serializer.data)
         self.assertEquals(response.status_code, status.HTTP_200_OK)
+
+    def test_create_new_employees(self):
+        response = self.client.post(reverse('employee-list'), {
+            'name': 'Yuri Piratello',
+            'email': 'yuri2@luizalabs.com',
+            'departament': 1
+        }, format='json')
+        self.assertEquals(response.status_code, status.HTTP_201_CREATED)
 
     def test_delete_employees(self):
         delete = self.client.delete(
